@@ -39,3 +39,4 @@ Temporary Items
 /config/database.yml
 
 /db/schema.rb
+.*
