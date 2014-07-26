@@ -1,7 +1,7 @@
 <div class="container">
     <div class="jumbotron">
-        <h1 id="blah">NO</h2>
-        <p id="sentence">(the weather in <%= "Chicago" %> is <%= "not "  %>weird.)</p>
+        <h1 id="blah"><%= @weird ? "YES" : "NO" %><%= @max_forecast %></h2>
+        <p id="sentence">(the weather in <%= @place.name %> is <%= "not " if !@weird %>weird.)</p>
     </div>
     <div class="row">
         <div class="col-lg-12" id="graphWrapper">

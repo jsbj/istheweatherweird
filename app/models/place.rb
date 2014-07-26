@@ -8,7 +8,7 @@ class Place < ActiveRecord::Base
   def past(date)
     {
       years: [1990,1991,1992,1993],
-      values: [30,22,24,25]
+      maxs: [30,22,24,25]
     }
   end
   

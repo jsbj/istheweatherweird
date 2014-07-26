@@ -45,5 +45,6 @@ gem 'spring',        group: :development
 gem 'rails_12factor', group: :production
 
 gem 'nokogiri'
+gem 'gon'
 
 ruby "2.1.2"

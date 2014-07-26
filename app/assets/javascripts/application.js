@@ -12,4 +12,4 @@
 
 //= require d3
 //= require turbolinks
-//= require welcome
+//= require place
