@@ -1,18 +1,17 @@
 class Place < ActiveRecord::Base
   CHICAGO = Place.where(name: "Chicago").first
-  P_WEIRD = 0.05
-
+  
   def stations
-    StationPlace.where(place_id: id)
+    PlaceStation.where(place_id: id).map {|ps| Station.where(wban: ps.station_wban, usaf: ps.station_usaf).first}
   end
   
   def max_forecast(date)
-    forecast = Forecast.where(station_id: Station::CHICAGO.id, date: date).first
+    forecast = Forecast.where(wban: stations.first.wban, usaf: stations.first.usaf, date: date).first
     forecast.max
   end
   
   def past(date)
-    gsods = Station::CHICAGO.gsods
+    gsods = stations.first.gsods(date)
 
     {
       years: gsods.map(&:year),
