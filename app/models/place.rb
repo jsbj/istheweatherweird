@@ -1,5 +1,10 @@
 class Place < ActiveRecord::Base
-  CHICAGO = Place.new(name: "Chicago")
+  CHICAGO = Place.where(name: "Chicago").first
+  P_WEIRD = 0.05
+
+  def stations
+    StationPlace.where(place_id: id)
+  end
   
   def max_forecast(date)
     forecast = Forecast.where(station_id: Station::CHICAGO.id, date: date).first
