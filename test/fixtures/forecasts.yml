@@ -2,12 +2,12 @@
 
 one:
   station_id: 1
+  date: 2014-07-26
   max: 1.5
   min: 1.5
-  date: 2014-07-26
 
 two:
   station_id: 1
+  date: 2014-07-26
   max: 1.5
   min: 1.5
-  date: 2014-07-26
