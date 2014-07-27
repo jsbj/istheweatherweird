@@ -17,7 +17,7 @@ var makeHist = function(wrapperId, value, temps, title) {
         height = 300 - margin.top - margin.bottom;
 
     var x_with_value = d3.scale.linear()
-        .domain([Math.floor(d3.extent(maxTemps.concat(value))[0]), Math.ceil(d3.extent(maxTemps.concat(value))[1])])
+        .domain([Math.floor(d3.extent(temps.concat(value))[0]), Math.ceil(d3.extent(temps.concat(value))[1])])
         .range([0, width]);
 
     // Generate a histogram using twenty uniformly-spaced bins.
@@ -118,4 +118,4 @@ var makeHist = function(wrapperId, value, temps, title) {
 
 
 makeHist("maxGraphWrapper", forecast.max, maxTemps, "Daily high temperatures for ")
-makeHist("minGraphWrapper", forecast.min, minTemps, "Daily low temperatures for ")
+// makeHist("minGraphWrapper", forecast.min, minTemps, "Daily low temperatures for ")
