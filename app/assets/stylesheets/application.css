@@ -63,7 +63,7 @@ body {
   text-align: center;
   margin-bottom: 20px;
 }
-#graphWrapper {
+.graphWrapper {
     border: 1px solid black;
 }
 .jumbotron .btn {

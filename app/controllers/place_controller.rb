@@ -1,9 +1,13 @@
 class PlaceController < ApplicationController
   def show
-    @date = Date.today
+    @date = Time.use_zone("America/Chicago") { Time.zone.now.to_date }
     @place = Place::CHICAGO
     gon.past = @place.past(@date)
-    gon.max_forecast = @place.max_forecast(@date)
+    forecast = @place.forecast(@date)
+    gon.forecast = {
+      min: forecast.min,
+      max: forecast.max
+    }
     @weird = @place.weird?(@date)
   end
 end
