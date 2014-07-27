@@ -6,9 +6,9 @@ var minTemps = past.map(function(d) { return d.min })
 // var minTemps = d3.range(50).map(function() { return 32 + 1.8 * (d3.random.bates(10)() * 20 + 20) });
 // var years = d3.range(50).map(function() { return })
 
+data = 3
 
-
-var makeHist = function(wrapperId, value, temps, title) {
+var makeHist = function(wrapperId, value, temps, title, key) {
     // A formatter for counts.
     var formatCount = d3.format(",.0f");
 
@@ -22,12 +22,12 @@ var makeHist = function(wrapperId, value, temps, title) {
 
     // Generate a histogram using twenty uniformly-spaced bins.
     var tickNum = 15
-    var data = d3.layout.histogram()
-        .value(function(d) {return d.max})
+    data = d3.layout.histogram()
+        .value(function(d) {return d[key]})
         .bins(x_with_value.ticks(tickNum))
         (past);
 
-    x = d3.scale.linear()
+    var x = d3.scale.linear()
         .domain(d3.extent(x_with_value.ticks(tickNum)))
         .range([0,width]);
 
@@ -117,5 +117,5 @@ var makeHist = function(wrapperId, value, temps, title) {
 }
 
 
-makeHist("maxGraphWrapper", forecast.max, maxTemps, "Daily high temperatures for ")
-// makeHist("minGraphWrapper", forecast.min, minTemps, "Daily low temperatures for ")
+makeHist("maxGraphWrapper", forecast.max, maxTemps, "Daily high temperatures for ", "max")
+makeHist("minGraphWrapper", forecast.min, minTemps, "Daily low temperatures for ", "min")
