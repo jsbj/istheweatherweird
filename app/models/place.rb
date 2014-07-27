@@ -31,9 +31,15 @@ class Place < ActiveRecord::Base
   end
   
   def weird?(date)
-    today = forecast(date).max
-    hist = past(date).map {|x| x[:max]}
-    p = hist.select{ |x| x <= today }.size / Float(hist.size)
-    (p > 1 - P) or (p < P)
+	today = forecast(date)
+	hist = past(date)
+
+    maxs = hist.map {|x| x[:max]}
+    p_max = maxs.select{ |x| x <= today.max }.size / Float(hist.size)
+    
+    mins = hist.map {|x| x[:min]}
+    p_min = mins.select{ |x| x <= today.min }.size / Float(hist.size)
+	
+	(p_max > 1 - P) or (p_max < P) or (p_min > 1 - P) or (p_min < P)
   end
 end
