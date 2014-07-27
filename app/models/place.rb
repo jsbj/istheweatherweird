@@ -1,5 +1,6 @@
 class Place < ActiveRecord::Base
   CHICAGO = Place.where(name: "Chicago").first
+  P = 0.10
   
   def stations
     PlaceStation.where(place_id: id).map {|ps| Station.where(wban: ps.station_wban, usaf: ps.station_usaf).first}
@@ -22,6 +23,9 @@ class Place < ActiveRecord::Base
   end
   
   def weird?(date)
-    false
+	today = max_forecast(date)
+    hist  = past(date)[:maxs]
+	p =    hist.select{ |x| x <= today }.size / Float(hist.size)
+    (p > 1 - P) or (p < P)
   end
 end
