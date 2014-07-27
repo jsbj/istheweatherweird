@@ -1,6 +1,7 @@
 // Generate a Bates distribution of 10 random variables.
 var value = gon.max_forecast // 82.4
-var maxTemps = gon.past.maxs // d3.range(50).map(function() { return 32 + 1.8 * (d3.random.bates(10)() * 20 + 20) });
+var past = gon.past // d3.range(50).map(function() { return 32 + 1.8 * (d3.random.bates(10)() * 20 + 20) });
+var maxTemps = past.map(function(d) { return d.max })
 // var minTemps = d3.range(50).map(function() { return 32 + 1.8 * (d3.random.bates(10)() * 20 + 20) });
 // var years = d3.range(50).map(function() { return })
 
@@ -20,8 +21,9 @@ var x_with_value = d3.scale.linear()
 // Generate a histogram using twenty uniformly-spaced bins.
 var tickNum = 15
 var data = d3.layout.histogram()
+    .value(function(d) {return d.max})
     .bins(x_with_value.ticks(tickNum))
-    (maxTemps);
+    (past);
 
 x = d3.scale.linear()
     .domain(d3.extent(x_with_value.ticks(tickNum)))
@@ -57,7 +59,23 @@ bar.append("rect")
     .attr("width", x(data[0].dx + x.domain()[0]) - 2)
     .attr("height", function(d) { return height - y(d.y); });
 
-// bar.append("text")
+data.forEach(function(d,i) {
+    d = d.sort(function(e,f) { return f.year - e.year})
+    d.forEach(function(j,k) {
+        svg.append("text")
+        .attr("dy", ".75em")
+        .attr("y", 5 + y(d.y) + k * 10)
+        .attr("x", x(d.x) + x(data[0].dx + x.domain()[0]) / 2)
+        .attr("text-anchor", "middle")
+        // .attr("fill", "white")
+        // .attr("stroke", "white")
+        .text(j.year);
+    })
+})
+
+        
+
+// .append("text")
 //     .attr("dy", ".75em")
 //     .attr("y", 6)
 //     .attr("x", x(data[0].dx + x.domain()[0]) / 2)

@@ -13,10 +13,12 @@ class Place < ActiveRecord::Base
   def past(date)
     gsods = stations.first.gsods(date)
 
-    {
-      years: gsods.map(&:year),
-      maxs: gsods.map(&:max)
-    }
+    gsods.map do |gsod|
+      {
+        year: gsod.year,
+        max: gsod.max
+      }
+    end
   end
   
   def weird?(date)
