@@ -8,6 +8,13 @@ class Place < ActiveRecord::Base
   
   def max_forecast(date)
     forecast = Forecast.where(wban: stations.first.wban, usaf: stations.first.usaf, date: date).first
+    
+    if !forecast
+      Forecast.update_max_and_min
+      
+      forecast = Forecast.where(wban: stations.first.wban, usaf: stations.first.usaf, date: date).first
+    end
+    
     forecast.max
   end
   
@@ -23,9 +30,9 @@ class Place < ActiveRecord::Base
   end
   
   def weird?(date)
-	today = max_forecast(date)
-    hist  = past(date)[:maxs]
-	p =    hist.select{ |x| x <= today }.size / Float(hist.size)
+    today = max_forecast(date)
+    hist = past(date).map {|x| x[:max]}
+    p = hist.select{ |x| x <= today }.size / Float(hist.size)
     (p > 1 - P) or (p < P)
   end
 end
