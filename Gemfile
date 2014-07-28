@@ -48,3 +48,5 @@ gem 'nokogiri'
 gem 'gon'
 
 ruby "2.1.2"
+
+gem 'mixpanel-ruby'
