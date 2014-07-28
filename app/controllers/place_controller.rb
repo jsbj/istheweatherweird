@@ -12,8 +12,8 @@ class PlaceController < ApplicationController
     }
     @weird = @place.weird?(@date)
 
-	#if Rails.env.production?
+	if Rails.env.production?
 	  	@tracker.track(0,"Main page")
-	#end
+	end
   end
 end
