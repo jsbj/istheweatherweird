@@ -12,9 +12,8 @@ class PlaceController < ApplicationController
     }
     @weird = @place.weird?(@date)
 
-	if Rails.env.production?
-		tracker = Mixpanel::Tracker.new("73d5b1f1bee48b4fcc119119c45f45c5")
-	  	tracker.track(0,"Main page")
-	end
+	#if Rails.env.production?
+	  	@tracker.track(0,"Main page")
+	#end
   end
 end
