@@ -13,7 +13,7 @@ class PlaceController < ApplicationController
     @weird = @place.weird?(@date)
 
 	if Rails.env.production?
-	  	@tracker.track(0,"Main page")
+	  	@tracker.track(request.remote_ip,"Main page")
 	end
   end
 end
