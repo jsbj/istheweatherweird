@@ -1,8 +1,8 @@
 // Generate a Bates distribution of 10 random variables.
 var forecast = gon.forecast // 82.4
 var past = gon.past // d3.range(50).map(function() { return 32 + 1.8 * (d3.random.bates(10)() * 20 + 20) });
-var maxTemps = past.map(function(d) { return d.max })
-var minTemps = past.map(function(d) { return d.min })
+var maxTemps = past.map(function(d) { return parseFloat(d.max) })
+var minTemps = past.map(function(d) { return parseFloat(d.min) })
 // var minTemps = d3.range(50).map(function() { return 32 + 1.8 * (d3.random.bates(10)() * 20 + 20) });
 // var years = d3.range(50).map(function() { return })
 
